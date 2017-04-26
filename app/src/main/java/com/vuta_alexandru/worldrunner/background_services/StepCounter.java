@@ -49,6 +49,7 @@ public class StepCounter {
          mgr.unregisterListener(listener);
          nbSteps = 0;
          Log.d(Constants.TAG, "Object Closed! ");
+         Log.d(Constants.TAG, "Object Closed! ");
      }
     public void restart() {
         mgr.registerListener(listener, step, SensorManager.SENSOR_DELAY_NORMAL);
