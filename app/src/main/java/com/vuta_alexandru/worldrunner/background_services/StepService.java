@@ -23,12 +23,13 @@ public class StepService extends Service implements StepCounter.Callback {
     public void onCreate() {
         super.onCreate();
 
+        pref = PreferenceManager.getDefaultSharedPreferences(StepService.this);
+        stp = new StepCounter(this , this);
+
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        StepService.this.getSharedPreferences("", Context.MODE_PRIVATE);
-        pref = PreferenceManager.getDefaultSharedPreferences(StepService.this);
-        stp = new StepCounter(this , this);
+
 
         //TODO do something useful
         return START_STICKY;
