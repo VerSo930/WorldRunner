@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.vuta_alexandru.worldrunner.MainActivity">
+      tools:context="com.vuta_alexandru.worldrunner.MainActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.learn2crack.loginregistration.MainActivity">
+        android:background="@drawable/login_bg"
+        tools:context=".MainActivity">
 
         <FrameLayout
             android:id="@+id/fragment_frame"
+
+            android:background="@drawable/login_bg_over"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

@@ -1,38 +1,38 @@
 package com.vuta_alexandru.worldrunner;
 
-import android.app.ActivityManager;
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.vuta_alexandru.worldrunner.background_services.StepService;
 import com.vuta_alexandru.worldrunner.login_register.Constants;
 import com.vuta_alexandru.worldrunner.login_register.LoginFragment;
 import com.vuta_alexandru.worldrunner.login_register.ProfileFragment;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
-
     private SharedPreferences pref;
-    private Time time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        time = new Time();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         setContentView(R.layout.activity_main);
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         initFragment();
-
+            // Start Step counter sensor service
             Intent i = new Intent(MainActivity.this, StepService.class);
             this.startService(i);
 
@@ -51,13 +51,5 @@ public class MainActivity extends AppCompatActivity {
        // Log.d("vuta", pref.getString(Constants.NAME,"") +" uid:" +pref.getString(Constants.UNIQUE_ID,""));
         Log.d("vuta", "steps from prefs: "+pref.getInt(Constants.STEPS_NUMBER, 0));
     }
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

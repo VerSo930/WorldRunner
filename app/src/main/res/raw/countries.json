@@ -1,4 +1,5 @@
-[
+{
+  "countries": [
   {
     "id": "1",
     "name": "Afghanistan",
@@ -1493,4 +1494,4 @@
     "alpha_2": "zw",
     "alpha_3": "zwe"
   }
-]
+]}
