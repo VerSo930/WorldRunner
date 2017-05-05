@@ -78,7 +78,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         tv_login = (TextView) view.findViewById(R.id.tv_login);
         et_name = (EditText) view.findViewById(R.id.first_name);
         et_email = (EditText) view.findViewById(R.id.et_email);
-        country = (Spinner) view.findViewById(R.id.country);
+
         et_password = (EditText) view.findViewById(R.id.et_password);
         progress = (ProgressBar) view.findViewById(R.id.progress);
         btn_register.setOnClickListener(this);
