@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:src="@drawable/logo_worldrunner_3" />
+
+    <EditText
+        android:id="@+id/textWeight"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/weight"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="@string/weight"
+        android:inputType="number"
+        android:padding="@dimen/padding_edit_text"
+        android:singleLine="true"
+        android:textColor="@color/texteffect"
+        android:textColorHint="@color/text_hint"
+        android:textCursorDrawable="@null"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish" />
+
+    <EditText
+        android:id="@+id/textHeight"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/height"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:hint="@string/height"
+        android:inputType="number"
+        android:padding="@dimen/padding_edit_text"
+        android:singleLine="true"
+        android:textColor="@color/texteffect"
+        android:textColorHint="@color/text_hint"
+        android:textCursorDrawable="@null"
+        android:textSize="20sp" />
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/white_greyish" />
+
+    <Spinner
+        android:id="@+id/spinnerCountry"
+        style="@android:style/Widget.Holo.Light.Spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:spinnerMode="dialog"
+        android:tag="Choose"
+        android:theme="@style/ThemeSpinner" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/loginbutton_selector"
+        android:padding="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/next"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:indeterminate="true"
+        android:visibility="invisible" />
+
+</LinearLayout>
