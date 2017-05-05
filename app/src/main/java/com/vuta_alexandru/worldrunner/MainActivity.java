@@ -25,31 +25,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+
+
         setContentView(R.layout.activity_main);
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         initFragment();
-            // Start Step counter sensor service
-            Intent i = new Intent(MainActivity.this, StepService.class);
-            this.startService(i);
+        // Start Step counter sensor service
+        Intent i = new Intent(MainActivity.this, StepService.class);
+        this.startService(i);
 
     }
 
-    private void initFragment(){
+    private void initFragment() {
         Fragment fragment;
-        if(pref.getBoolean(Constants.IS_LOGGED_IN,false)){
+        if (pref.getBoolean(Constants.IS_LOGGED_IN, false)) {
             fragment = new ProfileFragment();
-        }else {
+        } else {
             fragment = new LoginFragment();
         }
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_frame,fragment);
+        ft.replace(R.id.fragment_frame, fragment);
         ft.commit();
-       // Log.d("vuta", pref.getString(Constants.NAME,"") +" uid:" +pref.getString(Constants.UNIQUE_ID,""));
-        Log.d("vuta", "steps from prefs: "+pref.getInt(Constants.STEPS_NUMBER, 0));
+        // Log.d("vuta", pref.getString(Constants.NAME,"") +" uid:" +pref.getString(Constants.UNIQUE_ID,""));
+        Log.d("vuta", "steps from prefs: " + pref.getInt(Constants.STEPS_NUMBER, 0));
     }
 
 }

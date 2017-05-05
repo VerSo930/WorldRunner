@@ -1,5 +1,8 @@
 package com.vuta_alexandru.worldrunner.models;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 /**
  * Created by vuta on 25/04/2017.
  */
@@ -12,6 +15,35 @@ public class User {
     private String password;
     private String old_password;
     private String new_password;
+    private String timezone;
+    private String weight;
+    private String height;
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public User() {
+        Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();
+        this.timezone = tz.getID();
+    }
 
     public String getName() {
         return name;

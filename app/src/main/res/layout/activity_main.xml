@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-      tools:context="com.vuta_alexandru.worldrunner.MainActivity">
+    android:background="@android:color/white"
+    tools:context="com.vuta_alexandru.worldrunner.MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_bg"
+
         tools:context=".MainActivity">
+
+        <ImageView
+            android:id="@+id/main_backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:scaleType="center"
+            android:src="@drawable/background_running" />
 
         <FrameLayout
             android:id="@+id/fragment_frame"
-
-            android:background="@drawable/login_bg_over"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:background="@drawable/login_bg"
+            android:layout_height="match_parent" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

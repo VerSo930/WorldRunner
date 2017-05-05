@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,13 +12,8 @@
 
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorHint">@color/text_default</item>
-    </style>
 
-    <style name="ThemeSpinner">
-        <!-- Color when pressed -->
-        <item name="colorAccent">#ffa000</item>
-        <!-- Default color for the dropdown arrow and line -->
-        <item name="colorControlNormal">#ffc107</item>
-    </style>
+        <item name="android:statusBarColor">@color/colorAccent</item>
 
+    </style>
 </resources>
