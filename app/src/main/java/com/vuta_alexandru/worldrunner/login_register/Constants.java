@@ -11,7 +11,10 @@ public class Constants {
     public static final String LOGIN_OPERATION = "login";
     public static final String CHANGE_PASSWORD_OPERATION = "chgPass";
     public static final String UPDATE_STEPS_OPERATION = "updsteps";
+    public static final String GET_STEPS_OPERATION = "getsteps";
+    public static final String UPDATE_USER_OPERATION = "upduser";
 
+    public static final long UPDATE_STEPS_INTERVAL =   60 * 1000;
 
     public static final String SUCCESS = "success";
 

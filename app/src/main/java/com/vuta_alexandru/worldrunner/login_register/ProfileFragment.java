@@ -22,20 +22,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vuta_alexandru.worldrunner.R;
-import com.vuta_alexandru.worldrunner.models.ServerRequest;
-import com.vuta_alexandru.worldrunner.models.ServerResponse;
+import com.vuta_alexandru.worldrunner.database_conn.DatabaseCallback;
+import com.vuta_alexandru.worldrunner.database_conn.DatabaseOperations;
+import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
+import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
+import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
+import com.vuta_alexandru.worldrunner.database_conn.StepsResponse;
+import com.vuta_alexandru.worldrunner.models.Step;
+import com.vuta_alexandru.worldrunner.models.Steps;
 import com.vuta_alexandru.worldrunner.models.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+public class ProfileFragment extends Fragment implements View.OnClickListener,DatabaseCallback {
 
     private TextView tv_name,tv_email,tv_message;
     private SharedPreferences pref;
-    private AppCompatButton btn_change_password,btn_logout;
+    private AppCompatButton btn_change_password,btn_logout, btn_update;
     private EditText et_old_password,et_new_password;
     private AlertDialog dialog;
     private ProgressBar progress;
@@ -52,7 +61,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        tv_name.setText("Welcome : "+pref.getString(Constants.NAME,""));
+        tv_name.setText("Welcome : "+pref.getString(Constants.UNIQUE_ID,""));
         tv_email.setText(pref.getString(Constants.EMAIL,""));
 
     }
@@ -65,6 +74,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         btn_logout = (AppCompatButton)view.findViewById(R.id.btn_logout);
         btn_change_password.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
+        btn_update = (AppCompatButton) view.findViewById(R.id.btn_update);
+        btn_update.setOnClickListener(this);
 
     }
 
@@ -122,6 +133,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_logout:
                 logout();
                 break;
+            case R.id.btn_update:
+                Log.d(Constants.TAG, "On update button ");
+                User user = new User();
+                //user.setSteps("456");
+                user.setUnique_id(pref.getString(Constants.UNIQUE_ID,""));
+                DatabaseOperations databaseOperations = new DatabaseOperations(getActivity());
+                databaseOperations.getStepsReq(user, Constants.GET_STEPS_OPERATION, "1 DAY", "100", this);
+                break;
         }
     }
 
@@ -159,7 +178,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ServerRequest request = new ServerRequest();
         request.setOperation(Constants.CHANGE_PASSWORD_OPERATION);
         request.setUser(user);
-        Call<ServerResponse> response = requestInterface.operation(request);
+        Call<ServerResponse> response = requestInterface.userReq(request);
 
         response.enqueue(new Callback<ServerResponse>() {
             @Override
@@ -171,24 +190,40 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     tv_message.setVisibility(View.GONE);
                     dialog.dismiss();
                     Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
-
-                }else {
+                } else {
                     progress.setVisibility(View.GONE);
                     tv_message.setVisibility(View.VISIBLE);
                     tv_message.setText(resp.getMessage());
-
                 }
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-
                 Log.d(Constants.TAG,"failed");
                 progress.setVisibility(View.GONE);
                 tv_message.setVisibility(View.VISIBLE);
                 tv_message.setText(t.getLocalizedMessage());
-
             }
         });
+    }
+
+
+    @Override
+    public void UpdateError(Object o) {
+
+        Log.d(Constants.TAG, " error: "+ o.toString());
+
+    }
+
+    @Override
+    public void UpdateSuccess(Object o) {
+
+       List<Step> obj = (List<Step>) o;
+        for(Step s: obj) {
+            Log.d(Constants.TAG, " success: "+ s.getSteps());
+        }
+
+       // Log.d(Constants.TAG, " success: "+ o.toString());
+
     }
 }

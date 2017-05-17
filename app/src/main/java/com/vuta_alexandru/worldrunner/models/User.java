@@ -17,7 +17,22 @@ public class User {
     private String new_password;
     private String timezone;
     private String weight;
+    private String steps;
     private String height;
+
+    public User() {
+        Calendar cal = Calendar.getInstance();
+        TimeZone tz = cal.getTimeZone();
+        this.timezone = tz.getID();
+    }
+
+    public String getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
+    }
 
     public String getWeight() {
         return weight;
@@ -39,11 +54,6 @@ public class User {
         return timezone;
     }
 
-    public User() {
-        Calendar cal = Calendar.getInstance();
-        TimeZone tz = cal.getTimeZone();
-        this.timezone = tz.getID();
-    }
 
     public String getName() {
         return name;
@@ -55,6 +65,10 @@ public class User {
 
     public String getUnique_id() {
         return unique_id;
+    }
+
+    public void setUnique_id(String unique_id) {
+        this.unique_id = unique_id;
     }
 
     public void setName(String name) {

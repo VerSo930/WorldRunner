@@ -14,11 +14,14 @@
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="mobileNumber">Mobile Number</string>
+    <string name="weight"> ex 75 kg</string>
+    <string name="height"> ex 175 cm</string>
     <string name="location">Location</string>
     <string name="confirmPassword">Confirm Password</string>
     <string name="terms_conditions">By clicking SignUp you agree all the Terms and Conditions.</string>
     <string name="signUp">SIGN UP</string>
     <string name="signIn">SIGN IN</string>
+    <string name="next">NEXT</string>
     <string name="already_user">Already have Account? Login here.</string>
     <string name="register_user">Don\'t have an account yet? Register here.</string>
     <string name="registered_emailid">Please enter your Registered Email Id below:</string>

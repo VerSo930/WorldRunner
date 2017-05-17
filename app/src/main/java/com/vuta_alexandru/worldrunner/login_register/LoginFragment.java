@@ -11,7 +11,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +20,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.vuta_alexandru.worldrunner.MainActivity;
 import com.vuta_alexandru.worldrunner.R;
-import com.vuta_alexandru.worldrunner.models.ServerRequest;
-import com.vuta_alexandru.worldrunner.models.ServerResponse;
+import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
+import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
+import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
 
 import retrofit2.Call;
@@ -102,7 +101,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         ServerRequest request = new ServerRequest();
         request.setOperation(Constants.LOGIN_OPERATION);
         request.setUser(user);
-        Call<ServerResponse> response = requestInterface.operation(request);
+
+        Call<ServerResponse> response = requestInterface.userReq(request);
 
         response.enqueue(new Callback<ServerResponse>() {
             @Override

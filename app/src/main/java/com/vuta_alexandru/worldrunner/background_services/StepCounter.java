@@ -37,18 +37,15 @@ public class StepCounter {
              //Log.d(Constants.TAG, "Sensor changed :"+ event.values[0]);
              nbSteps = (int) event.values[0];
              cb.stepStarted(nbSteps);
-
          }
 
          @Override
          public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
          }
      } ;
      public void close() {
          mgr.unregisterListener(listener);
          nbSteps = 0;
-         Log.d(Constants.TAG, "Object Closed! ");
          Log.d(Constants.TAG, "Object Closed! ");
      }
     public void restart() {

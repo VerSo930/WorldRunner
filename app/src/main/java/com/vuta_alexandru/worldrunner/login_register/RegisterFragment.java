@@ -6,12 +6,9 @@ package com.vuta_alexandru.worldrunner.login_register;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +25,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vuta_alexandru.worldrunner.R;
+import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
 import com.vuta_alexandru.worldrunner.models.Country;
-import com.vuta_alexandru.worldrunner.models.ServerRequest;
-import com.vuta_alexandru.worldrunner.models.ServerResponse;
+import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
+import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
 
 import org.json.JSONArray;
@@ -40,10 +38,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -130,7 +125,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         ServerRequest request = new ServerRequest();
         request.setOperation(Constants.REGISTER_OPERATION);
         request.setUser(user);
-        Call<ServerResponse> response = requestInterface.operation(request);
+        Call<ServerResponse> response = requestInterface.userReq(request);
 
         response.enqueue(new Callback<ServerResponse>() {
             @Override

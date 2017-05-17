@@ -17,6 +17,7 @@ import com.vuta_alexandru.worldrunner.background_services.StepService;
 import com.vuta_alexandru.worldrunner.login_register.Constants;
 import com.vuta_alexandru.worldrunner.login_register.LoginFragment;
 import com.vuta_alexandru.worldrunner.login_register.ProfileFragment;
+import com.vuta_alexandru.worldrunner.login_register.RegisterFragmentDetails;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
+
         Fragment fragment;
         if (pref.getBoolean(Constants.IS_LOGGED_IN, false)) {
             fragment = new ProfileFragment();
@@ -46,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_frame, fragment);
         ft.commit();
+        /*
+        Fragment fragment;
+        fragment = new RegisterFragmentDetails();
+
+
+        */
         // Log.d("vuta", pref.getString(Constants.NAME,"") +" uid:" +pref.getString(Constants.UNIQUE_ID,""));
         Log.d("vuta", "steps from prefs: " + pref.getInt(Constants.STEPS_NUMBER, 0));
     }

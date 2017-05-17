@@ -1,4 +1,6 @@
-package com.vuta_alexandru.worldrunner.models;
+package com.vuta_alexandru.worldrunner.database_conn;
+
+import com.vuta_alexandru.worldrunner.models.User;
 
 /**
  * Created by vuta on 25/04/2017.
