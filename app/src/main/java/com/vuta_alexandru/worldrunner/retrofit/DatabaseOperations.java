@@ -1,18 +1,21 @@
-package com.vuta_alexandru.worldrunner.database_conn;
+package com.vuta_alexandru.worldrunner.retrofit;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.InstanceCreator;
-import com.google.gson.internal.ObjectConstructor;
 import com.vuta_alexandru.worldrunner.login_register.Constants;
 import com.vuta_alexandru.worldrunner.models.User;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.StepsRequest;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.UpdateStepsReq;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.StepsResponse;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.UpdateStepsRes;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -60,6 +63,28 @@ public class DatabaseOperations {
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
+                cb.UpdateError(t.getLocalizedMessage());
+            }
+        });
+
+    }
+
+    public void updateSteps (User user, final DatabaseCallback cb) {
+
+        // Initialize
+
+        UpdateStepsReq request = new UpdateStepsReq(user);
+        Call<UpdateStepsRes> resp = requestInterface.updateStepsRequest(request);
+
+        // Enqueue the request, execute
+        resp.enqueue(new retrofit2.Callback<UpdateStepsRes>() {
+            @Override
+            public void onResponse(Call<UpdateStepsRes> call, retrofit2.Response<UpdateStepsRes> response) {
+                cb.UpdateSuccess(response.body().getMessage());
+            }
+
+            @Override
+            public void onFailure(Call<UpdateStepsRes> call, Throwable t) {
                 cb.UpdateError(t.getLocalizedMessage());
             }
         });

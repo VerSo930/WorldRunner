@@ -1,6 +1,4 @@
-package com.vuta_alexandru.worldrunner.database_conn;
-
-import java.util.Objects;
+package com.vuta_alexandru.worldrunner.retrofit;
 
 /**
  * Created by vuta on 11/05/2017.

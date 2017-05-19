@@ -19,6 +19,8 @@ import com.vuta_alexandru.worldrunner.login_register.LoginFragment;
 import com.vuta_alexandru.worldrunner.login_register.ProfileFragment;
 import com.vuta_alexandru.worldrunner.login_register.RegisterFragmentDetails;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences pref;
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Calendar c = Calendar.getInstance();
+
+        String sDate = c.get(Calendar.YEAR) + "-"
+                + c.get(Calendar.MONTH)
+                + "-" + c.get(Calendar.DAY_OF_MONTH)
+                + " at " + c.get(Calendar.HOUR_OF_DAY)
+                + ":" + c.get(Calendar.MINUTE);
+
+        Log.d(Constants.TAG, "Date: "+sDate);
 
 
         setContentView(R.layout.activity_main);

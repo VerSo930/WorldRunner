@@ -1,4 +1,4 @@
-package com.vuta_alexandru.worldrunner.database_conn;
+package com.vuta_alexandru.worldrunner.retrofit.response_beans;
 
 import com.vuta_alexandru.worldrunner.models.User;
 

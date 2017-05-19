@@ -21,10 +21,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vuta_alexandru.worldrunner.R;
-import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
+import com.vuta_alexandru.worldrunner.retrofit.RequestInterface;
 import com.vuta_alexandru.worldrunner.models.Country;
-import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
-import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
 
 import org.json.JSONArray;
@@ -76,7 +76,6 @@ public class RegisterFragmentDetails extends Fragment implements View.OnClickLis
         spinnerCountry = (Spinner) view.findViewById(R.id.spinnerCountry);
         textHeightET = (EditText) view.findViewById(R.id.textHeight);
         progress = (ProgressBar) view.findViewById(R.id.progress);
-
         btnNext.setOnClickListener(this);
     }
 

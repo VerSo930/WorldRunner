@@ -22,21 +22,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vuta_alexandru.worldrunner.R;
-import com.vuta_alexandru.worldrunner.database_conn.DatabaseCallback;
-import com.vuta_alexandru.worldrunner.database_conn.DatabaseOperations;
-import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
-import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
-import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
-import com.vuta_alexandru.worldrunner.database_conn.StepsResponse;
+import com.vuta_alexandru.worldrunner.retrofit.DatabaseCallback;
+import com.vuta_alexandru.worldrunner.retrofit.DatabaseOperations;
+import com.vuta_alexandru.worldrunner.retrofit.RequestInterface;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.Step;
-import com.vuta_alexandru.worldrunner.models.Steps;
 import com.vuta_alexandru.worldrunner.models.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -139,7 +136,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
                 //user.setSteps("456");
                 user.setUnique_id(pref.getString(Constants.UNIQUE_ID,""));
                 DatabaseOperations databaseOperations = new DatabaseOperations(getActivity());
-                databaseOperations.getStepsReq(user, Constants.GET_STEPS_OPERATION, "1 DAY", "100", this);
+                //databaseOperations.getStepsReq(user, Constants.GET_STEPS_OPERATION, "1 DAY", "100", this);
+                databaseOperations.updateSteps(user, this);
                 break;
         }
     }
@@ -217,13 +215,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
 
     @Override
     public void UpdateSuccess(Object o) {
-
-       List<Step> obj = (List<Step>) o;
+        String msg = (String) o;
+       /*List<Step> obj = (List<Step>) o;
         for(Step s: obj) {
             Log.d(Constants.TAG, " success: "+ s.getSteps());
-        }
+        }*/
 
-       // Log.d(Constants.TAG, " success: "+ o.toString());
+        Log.d(Constants.TAG, " success: "+ msg);
 
     }
 }

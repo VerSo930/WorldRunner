@@ -1,4 +1,4 @@
-package com.vuta_alexandru.worldrunner.database_conn;
+package com.vuta_alexandru.worldrunner.retrofit.response_beans;
 
 /**
  * Created by vuta on 17/05/2017.

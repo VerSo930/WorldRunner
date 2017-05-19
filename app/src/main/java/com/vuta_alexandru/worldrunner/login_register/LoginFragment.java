@@ -21,9 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vuta_alexandru.worldrunner.R;
-import com.vuta_alexandru.worldrunner.database_conn.RequestInterface;
-import com.vuta_alexandru.worldrunner.database_conn.ServerRequest;
-import com.vuta_alexandru.worldrunner.database_conn.ServerResponse;
+import com.vuta_alexandru.worldrunner.retrofit.RequestInterface;
+import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
+import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
 
 import retrofit2.Call;
