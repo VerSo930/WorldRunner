@@ -15,6 +15,8 @@ import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.retrofit.response_beans.StepsResponse;
 import com.vuta_alexandru.worldrunner.retrofit.response_beans.UpdateStepsRes;
 
+import org.json.JSONArray;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -69,11 +71,10 @@ public class DatabaseOperations {
 
     }
 
-    public void updateSteps (User user, final DatabaseCallback cb) {
+    public void updateSteps(User user, JSONArray object, final DatabaseCallback cb) {
 
         // Initialize
-
-        UpdateStepsReq request = new UpdateStepsReq(user);
+        UpdateStepsReq request = new UpdateStepsReq(user, object);
         Call<UpdateStepsRes> resp = requestInterface.updateStepsRequest(request);
 
         // Enqueue the request, execute
@@ -82,7 +83,6 @@ public class DatabaseOperations {
             public void onResponse(Call<UpdateStepsRes> call, retrofit2.Response<UpdateStepsRes> response) {
                 cb.UpdateSuccess(response.body().getMessage());
             }
-
             @Override
             public void onFailure(Call<UpdateStepsRes> call, Throwable t) {
                 cb.UpdateError(t.getLocalizedMessage());

@@ -14,23 +14,10 @@ import com.vuta_alexandru.worldrunner.login_register.Constants;
  */
 
 public class StepCounter {
+    public Callback cb = null;
     private SensorManager mgr=null;
     private Sensor step;
-    public Callback cb=null;
     private int nbSteps;
-
-    public int getNbSteps() {
-        return nbSteps;
-    }
-
-    public StepCounter(Context ctx, Callback cb) {
-        this.cb = cb;
-        mgr = (SensorManager) ctx.getSystemService(Context.SENSOR_SERVICE);
-        step = mgr.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        mgr.registerListener(listener, step, SensorManager.SENSOR_DELAY_NORMAL);
-        Log.d(Constants.TAG, "Object Created ");
-
-     }
      private SensorEventListener listener = new SensorEventListener() {
          @Override
          public void onSensorChanged(SensorEvent event) {
@@ -43,6 +30,20 @@ public class StepCounter {
          public void onAccuracyChanged(Sensor sensor, int accuracy) {
          }
      } ;
+
+    public StepCounter(Context ctx, Callback cb) {
+        this.cb = cb;
+        mgr = (SensorManager) ctx.getSystemService(Context.SENSOR_SERVICE);
+        step = mgr.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        mgr.registerListener(listener, step, SensorManager.SENSOR_DELAY_NORMAL);
+        Log.d(Constants.TAG, "Object Created ");
+
+    }
+
+    public int getNbSteps() {
+        return nbSteps;
+    }
+
      public void close() {
          mgr.unregisterListener(listener);
          nbSteps = 0;

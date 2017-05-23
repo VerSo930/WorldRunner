@@ -26,6 +26,7 @@ public class Constants {
     public static final String UNIQUE_ID = "unique_id";
     public static final String STEPS_NUMBER = "steps_number";
     public static final String STEPS_OBJECT = "steps_object";
+    public static final String LAST_STEPS_HOUR = "last_steps_object";
 
     public static final String SERVER_LAST_STEPS = "server_last_steps";
     public static final String SERVER_LAST_STEPS_UPDATE = "server_last_steps_update";

@@ -130,6 +130,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
             case R.id.btn_logout:
                 logout();
                 break;
+
+            // TODO: This is a test case: remove after finish
             case R.id.btn_update:
                 Log.d(Constants.TAG, "On update button ");
                 User user = new User();
@@ -137,7 +139,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
                 user.setUnique_id(pref.getString(Constants.UNIQUE_ID,""));
                 DatabaseOperations databaseOperations = new DatabaseOperations(getActivity());
                 //databaseOperations.getStepsReq(user, Constants.GET_STEPS_OPERATION, "1 DAY", "100", this);
-                databaseOperations.updateSteps(user, this);
+                //databaseOperations.updateSteps(user, this);
                 break;
         }
     }

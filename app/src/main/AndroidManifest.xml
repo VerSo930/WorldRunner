@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".background_services.StepService">
-        </service>
+        <service android:name=".background_services.StepService" />
 
         <receiver android:name=".background_services.StartServiceOnBoot" android:enabled="true" android:exported="false">
             <intent-filter>
