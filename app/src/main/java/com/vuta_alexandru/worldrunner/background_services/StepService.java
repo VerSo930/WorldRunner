@@ -88,8 +88,8 @@ public class StepService extends Service implements StepCounter.Callback {
 
             DatabaseOperations db = new DatabaseOperations(getApplication());
             User user = new User();
-            user.setUnique_id(pref.getString(Constants.UNIQUE_ID, ""));
-            user.setSteps(tmpSteps + "");
+            //user.setUnique_id(pref.getString(Constants.UNIQUE_ID, ""));
+            //user.setSteps(tmpSteps + "");
 
             DatabaseCallback cb = new DatabaseCallback() {
                 @Override

@@ -116,7 +116,7 @@ public class RegisterFragmentDetails extends Fragment implements View.OnClickLis
         RequestInterface requestInterface = retrofit.create(RequestInterface.class);
 
         User user = new User();
-        user.setName(name);
+        //user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
         ServerRequest request = new ServerRequest();

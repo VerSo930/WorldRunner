@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
                 Log.d(Constants.TAG, "On update button ");
                 User user = new User();
                 //user.setSteps("456");
-                user.setUnique_id(pref.getString(Constants.UNIQUE_ID,""));
+                //user.setUnique_id(pref.getString(Constants.UNIQUE_ID,""));
                 DatabaseOperations databaseOperations = new DatabaseOperations(getActivity());
                 //databaseOperations.getStepsReq(user, Constants.GET_STEPS_OPERATION, "1 DAY", "100", this);
                 //databaseOperations.updateSteps(user, this);
@@ -173,8 +173,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
 
         User user = new User();
         user.setEmail(email);
-        user.setOld_password(old_password);
-        user.setNew_password(new_password);
+        //user.setOld_password(old_password);
+        //user.setNew_password(new_password);
         ServerRequest request = new ServerRequest();
         request.setOperation(Constants.CHANGE_PASSWORD_OPERATION);
         request.setUser(user);

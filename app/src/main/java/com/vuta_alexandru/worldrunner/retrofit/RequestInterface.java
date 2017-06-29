@@ -4,6 +4,8 @@ package com.vuta_alexandru.worldrunner.retrofit;
  * Created by vuta on 26/04/2017.
  */
 
+import com.vuta_alexandru.worldrunner.models.Authentication;
+import com.vuta_alexandru.worldrunner.models.MyResponse;
 import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
 import com.vuta_alexandru.worldrunner.retrofit.request_beans.StepsRequest;
 import com.vuta_alexandru.worldrunner.retrofit.request_beans.UpdateStepsReq;
@@ -17,8 +19,8 @@ import retrofit2.http.POST;
 
 public interface RequestInterface {
 
-    @POST("/")
-    Call<ServerResponse> userReq(@Body ServerRequest request);
+    @POST("/authorization/login")
+    Call<MyResponse<Authentication>> authentication();
 
     @POST("/")
     Call<StepsResponse> stepsReq(@Body StepsRequest request);
