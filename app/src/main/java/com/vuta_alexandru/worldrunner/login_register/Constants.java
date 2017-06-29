@@ -6,7 +6,7 @@ package com.vuta_alexandru.worldrunner.login_register;
 
 public class Constants {
 
-    public static final String BASE_URL = "http://vuta-alexandru.com:8080/WorldRunner/v1";
+    public static final String BASE_URL = "https://vuta-alexandru.com:8443/WorldRunner/v1/";
     public static final String REGISTER_OPERATION = "register";
     public static final String LOGIN_OPERATION = "login";
     public static final String CHANGE_PASSWORD_OPERATION = "chgPass";

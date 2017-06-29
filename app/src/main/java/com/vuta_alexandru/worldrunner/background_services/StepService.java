@@ -45,7 +45,7 @@ public class StepService extends Service implements StepCounter.Callback {
         stp = new StepCounter(this, this);
         timer = new UpdateTimer();
         c = Calendar.getInstance();
-        getValues();
+       // getValues();
         //initSPSteps();
         Log.d(Constants.TAG, "OnCreate");
 

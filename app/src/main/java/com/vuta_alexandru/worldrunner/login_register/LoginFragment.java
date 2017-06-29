@@ -30,6 +30,13 @@ import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
 import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -93,9 +100,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void loginProcess(String email, String password) {
 
         String authorization = AuthHelper.generateAuthorizationHeader(email, password);
+        authorization = authorization.replace("\n", "").replace("\r", "");
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
+                .client(AuthHelper.createClient(getActivity().getApplicationContext()))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -107,7 +117,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         Log.d("VTZ", encodedUsernameAndPassword);
 
 
-        Call<MyResponse<Authentication>> response = requestInterface.authentication();
+        Call<MyResponse<Authentication>> response = requestInterface.authentication(authorization);
 
         response.enqueue(new Callback<MyResponse<Authentication>>() {
             @Override
@@ -116,7 +126,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 MyResponse<Authentication> resp = response.body();
                 Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
 
-                Log.d("vuta2", response.body().toString());
+                Log.d("vuta2", response.body().getData().getToken());
 
                 progress.setVisibility(View.INVISIBLE);
             }
@@ -125,7 +135,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             public void onFailure(Call<MyResponse<Authentication>> call, Throwable t) {
 
                 progress.setVisibility(View.INVISIBLE);
-                Log.d(Constants.TAG, "failed");
+                Log.d(Constants.TAG, "failed: "+t.getMessage());
                 Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
 
             }

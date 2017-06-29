@@ -15,15 +15,19 @@ import com.vuta_alexandru.worldrunner.retrofit.response_beans.UpdateStepsRes;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface RequestInterface {
 
-    @POST("/authorization/login")
-    Call<MyResponse<Authentication>> authentication();
+    @POST("authorization/login")
+    Call<MyResponse<Authentication>> authentication(@Header("Authorization") String token);
 
     @POST("/")
     Call<StepsResponse> stepsReq(@Body StepsRequest request);
+
+    @POST("/")
+    Call<ServerResponse> userReq(@Body ServerRequest request);
 
     @POST("/")
     Call<UpdateStepsRes> updateStepsRequest(@Body UpdateStepsReq request);
