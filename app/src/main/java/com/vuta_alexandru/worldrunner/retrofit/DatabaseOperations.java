@@ -90,7 +90,7 @@ public class DatabaseOperations {
         });
 
     }
-
+/*
     public void getStepsReq(User user, String method, String interval, String limit, final DatabaseCallback cb) {
 
         // Initialize
@@ -99,7 +99,7 @@ public class DatabaseOperations {
         request.setUser(user);
         request.setLimit(limit);
         request.setInterval(interval);
-        Call<StepsResponse> resp = requestInterface.stepsReq(request);
+        Call<StepsResponse> resp = requestInterface.updateStepsRequest(request);
 
         // Enqueue the request, execute
         resp.enqueue(new retrofit2.Callback<StepsResponse>() {
@@ -113,7 +113,7 @@ public class DatabaseOperations {
                 cb.UpdateError(t.getLocalizedMessage());
             }
         });
-    }
+    }*/
 
 
 }

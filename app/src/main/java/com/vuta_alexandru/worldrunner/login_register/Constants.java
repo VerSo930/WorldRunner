@@ -14,6 +14,10 @@ public class Constants {
     public static final String GET_STEPS_OPERATION = "getsteps";
     public static final String UPDATE_USER_OPERATION = "upduser";
 
+    public static final String SP_USER = "sharedpreference_user";
+    public static final String SP_TOKEN = "sharedpreference_token";
+    public static final String SP_AUTH_TOKEN = "sharedpreference_auth_token";
+
     public static final long UPDATE_STEPS_INTERVAL =   60 * 1000;
 
     public static final String SUCCESS = "success";

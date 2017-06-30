@@ -9,7 +9,9 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.util.Log;
@@ -22,10 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vuta_alexandru.worldrunner.R;
+import com.vuta_alexandru.worldrunner.Tools.SpTools;
 import com.vuta_alexandru.worldrunner.authorization.AuthHelper;
+import com.vuta_alexandru.worldrunner.authorization.RestController;
 import com.vuta_alexandru.worldrunner.models.Authentication;
 import com.vuta_alexandru.worldrunner.models.MyResponse;
 import com.vuta_alexandru.worldrunner.retrofit.RequestInterface;
+import com.vuta_alexandru.worldrunner.retrofit.RestCallback;
 import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
 import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.User;
@@ -49,14 +54,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextView tv_register;
     private ProgressBar progress;
     private SharedPreferences pref;
+    private String TAG = "VTZ";
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         initViews(view);
         return view;
     }
+
 
     private void initViews(View view) {
 
@@ -83,6 +90,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
 
+                RestController.getUserById(28, new RestCallback<MyResponse<User>>() {
+                    @Override
+                    public void onSuccess(MyResponse<User> userMyResponse) {
+                       /* Gson gson = new Gson();
+                        String usr = gson.toJson(userMyResponse.getData());*/
+                        Log.d("VTZ", "Success call");
+                    }
+
+                    @Override
+                    public void onFail(String string) {
+
+                    }
+                }, getActivity().getApplicationContext());
+
+/*
                 if (!email.isEmpty() && !password.isEmpty()) {
 
                     //progress.setVisibility(View.VISIBLE);
@@ -91,7 +113,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 } else {
 
                     Snackbar.make(getView(), "Fields are empty !", Snackbar.LENGTH_LONG).show();
-                }
+                }*/
                 break;
 
         }
@@ -99,47 +121,30 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void loginProcess(String email, String password) {
 
-        String authorization = AuthHelper.generateAuthorizationHeader(email, password);
-        authorization = authorization.replace("\n", "").replace("\r", "");
+        RestController.authentication(email, password, new RestCallback<MyResponse<Authentication>>() {
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .client(AuthHelper.createClient(getActivity().getApplicationContext()))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
-
-        String encodedUsernameAndPassword = email + ":" + password;
-        byte[] byts = encodedUsernameAndPassword.getBytes();
-        encodedUsernameAndPassword = Base64.encodeToString(byts, Base64.DEFAULT);
-        Log.d("VTZ", encodedUsernameAndPassword);
-
-
-        Call<MyResponse<Authentication>> response = requestInterface.authentication(authorization);
-
-        response.enqueue(new Callback<MyResponse<Authentication>>() {
             @Override
-            public void onResponse(Call<MyResponse<Authentication>> call, retrofit2.Response<MyResponse<Authentication>> response) {
+            public void onSuccess(MyResponse<Authentication> authenticationMyResponse) {
+                Log.d(TAG, "OK: " + authenticationMyResponse.getMessage());
+                user = authenticationMyResponse.getData().getUser();
+                if (authenticationMyResponse.getCode() == 200) {
 
-                MyResponse<Authentication> resp = response.body();
-                Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
+                    goToProfile(authenticationMyResponse.getData().getUser());
+                    SpTools.saveUser(pref, user);
+                    SpTools.saveToken(pref, authenticationMyResponse.getData().getToken());
 
-                Log.d("vuta2", response.body().getData().getToken());
+                } else {
 
-                progress.setVisibility(View.INVISIBLE);
+                    Snackbar.make(getView(), authenticationMyResponse.getMessage(), Snackbar.LENGTH_LONG);
+                }
             }
 
             @Override
-            public void onFailure(Call<MyResponse<Authentication>> call, Throwable t) {
-
-                progress.setVisibility(View.INVISIBLE);
-                Log.d(Constants.TAG, "failed: "+t.getMessage());
-                Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
-
+            public void onFail(String string) {
+                Log.d(TAG, "FAIL: " + string);
             }
-        });
+        }, getActivity().getApplicationContext());
+
     }
 
     private void goToRegister() {
@@ -150,11 +155,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         ft.commit();
     }
 
-    private void goToProfile() {
+    private void goToProfile(User user) {
 
         Fragment profile = new ProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("User", user);
+        profile.setArguments(bundle);
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_frame, profile);
         ft.commit();
     }
+
 }

@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
@@ -21,10 +22,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.vuta_alexandru.worldrunner.R;
+import com.vuta_alexandru.worldrunner.Tools.SpTools;
+import com.vuta_alexandru.worldrunner.authorization.RestController;
+import com.vuta_alexandru.worldrunner.models.MyResponse;
 import com.vuta_alexandru.worldrunner.retrofit.DatabaseCallback;
 import com.vuta_alexandru.worldrunner.retrofit.DatabaseOperations;
 import com.vuta_alexandru.worldrunner.retrofit.RequestInterface;
+import com.vuta_alexandru.worldrunner.retrofit.RestCallback;
 import com.vuta_alexandru.worldrunner.retrofit.request_beans.ServerRequest;
 import com.vuta_alexandru.worldrunner.retrofit.response_beans.ServerResponse;
 import com.vuta_alexandru.worldrunner.models.Step;
@@ -45,21 +51,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
     private EditText et_old_password,et_new_password;
     private AlertDialog dialog;
     private ProgressBar progress;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_profile,container,false);
         initViews(view);
+
+
         return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        tv_name.setText("Welcome : "+pref.getString(Constants.UNIQUE_ID,""));
-        tv_email.setText(pref.getString(Constants.EMAIL,""));
+
+        //user = (User) getArguments().getSerializable("User");
+
+        user = SpTools.getUser(pref);
+        tv_name.setText("Welcome : " + user.getFirstname() + " " + user.getLastname());
+        tv_email.setText(SpTools.getToken(pref));
 
     }
 
@@ -125,7 +144,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener,Da
         switch (v.getId()){
 
             case R.id.btn_chg_password:
-                showDialog();
+                //showDialog();
+                RestController.getUserById(28, new RestCallback<MyResponse<User>>() {
+                    @Override
+                    public void onSuccess(MyResponse<User> userMyResponse) {
+                       /* Gson gson = new Gson();
+                        String usr = gson.toJson(userMyResponse.getData());*/
+                        Log.d("VTZ", "Success call");
+                    }
+
+                    @Override
+                    public void onFail(String string) {
+
+                    }
+                }, getActivity().getApplicationContext());
+
                 break;
             case R.id.btn_logout:
                 logout();

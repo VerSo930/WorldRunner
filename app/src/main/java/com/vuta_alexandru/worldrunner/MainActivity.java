@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -32,9 +33,10 @@ import java.util.Date;
 
 public class MainActivity extends Activity {
 
+    protected static MainActivity instance;
+    private static SharedPreferences pref;
     StepService mBoundService;
     boolean mServiceBound = false;
-    private SharedPreferences pref;
     // Step Service callbacks
     private ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -51,10 +53,18 @@ public class MainActivity extends Activity {
         }
     };
 
+    public static Resources getReso() {
+        return instance.getResources();
+    }
+
+    public static SharedPreferences getSP() {
+        return pref;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        instance = this;
         setContentView(R.layout.activity_main);
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         initFragment();
