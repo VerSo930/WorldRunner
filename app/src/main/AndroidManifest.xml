@@ -3,6 +3,7 @@
     package="com.vuta_alexandru.worldrunner">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+	ss
 
     <application
         android:allowBackup="true"
